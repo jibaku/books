@@ -1,0 +1,14 @@
+{% extends "books/base_books.html" %}
+{% load thumbnail %}
+
+{% block title %}{{object.title}}{% endblock %}
+
+{% block content %}
+  <h3><a href="{% url books-details object.slug %}">{{object.title}}</a></h3>
+  {{ object.description|linebreaks }}
+  
+  <img src="{% thumbnail object.cover 250x250 %}" />
+  <p>
+  <a href="{% url books-index %}">Retour à la liste des livres</a>
+  </p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "books/base_books.html" %}
+{% load i18n thumbnail %}
+
+{% block title %}{% trans "Books" %}{% endblock %}
+
+{% block content %}
+{% for book in object_list %}
+  <h3><a href="{% url books-details book.slug %}">{{book.title}}</a></h3>
+  
+  {{ book.description|linebreaks }}
+  
+  <img src="{% thumbnail book.cover 250x250 %}" />
+{% endfor %}
+{% endblock %}
