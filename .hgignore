@@ -1,0 +1,4 @@
+syntax: glob
+
+books.egg-info/**
+*.pyc

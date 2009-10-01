@@ -4,7 +4,7 @@ from books.models import Book
 
 def books_list(request, page = 1):
     books = Book.on_site.all()
-    return object_list(request, queryset=books, allow_empty=False)
+    return object_list(request, queryset=books)
     
 def book_detail(request, slug):
     books = Book.on_site.all()
