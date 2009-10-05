@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
@@ -13,9 +14,25 @@ class Editor(models.Model):
 
 def cover_filename(instance, filename):
     return "books/%s.jpg" % instance.slug
-            
+
+class BookManager(models.Manager):
+    def published(self):
+        now = datetime.datetime.now()
+        queryset = self.filter(validated=True)
+        queryset = queryset.filter(start_publication_on__lte=now)
+        q = (Q(end_publication_on__isnull=False)&Q(end_publication_on__gt=now)) | Q(end_publication_on__isnull=True)
+        queryset = queryset.filter(q)
+        return queryset
+
+class SiteBookManager(CurrentSiteManager, BookManager):
+    pass
+
 class Book(models.Model):
     site = models.ForeignKey(Site)
+
+    validated = models.BooleanField(default=False)
+    start_publication_on = models.DateTimeField(default=datetime.datetime.now)
+    end_publication_on = models.DateTimeField(blank=True, null=True)
 
     lang = models.CharField(max_length=5)
     title = models.CharField(max_length=100)
@@ -30,8 +47,8 @@ class Book(models.Model):
     description = models.TextField()
     cover = models.ImageField(upload_to=cover_filename, blank=True)
     
-    objects = models.Manager()
-    on_site = CurrentSiteManager()
+    objects = BookManager()
+    on_site = SiteBookManager()
     
     def __unicode__(self):
         return self.title
