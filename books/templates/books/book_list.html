@@ -9,6 +9,8 @@
   
   {{ book.description|linebreaks }}
   
+  {% if book.cover %}
   <img src="{% thumbnail book.cover 250x250 %}" />
+  {% endif %}
 {% endfor %}
 {% endblock %}
