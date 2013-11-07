@@ -7,7 +7,7 @@ make_validated.short_description = "Mark selected books as validated"
 
 class BookAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
-    list_display = ('title', 'asin', 'site', 'validated', 'start_publication_on', 'end_publication_on')
+    list_display = ('title', 'editor', 'asin', 'site', 'validated', 'start_publication_on', 'end_publication_on')
     list_filter = ('site','editor', 'validated', 'start_publication_on', 'end_publication_on')
     search_fields = ('title',)
     actions = [make_validated]

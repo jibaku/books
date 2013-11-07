@@ -1,13 +1,18 @@
 from django.db import models
 from django.db.models import Q
-from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
+from django.utils.translation import ugettext_lazy as _
+
 import datetime
 
 class Editor(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
+
+    class Meta:
+        verbose_name = _('Editor')
+        verbose_name_plural = _('Editors')
 
     def __unicode__(self):
         return self.name
@@ -41,14 +46,18 @@ class Book(models.Model):
     editor = models.ForeignKey(Editor)
     url = models.URLField(blank=True)
     affiliate_url = models.URLField(blank=True)
-    isbn_10 = models.CharField(max_length=10, unique=True, null=True, blank=True)
-    isbn_13 = models.CharField(max_length=13, unique=True, null=True, blank=True)
-    asin = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    isbn_10 = models.CharField(max_length=10, null=True, blank=True)
+    isbn_13 = models.CharField(max_length=13, null=True, blank=True)
+    asin = models.CharField(max_length=20, null=True, blank=True)
     description = models.TextField()
     cover = models.ImageField(upload_to=cover_filename, blank=True)
     
     objects = BookManager()
     on_site = SiteBookManager()
+
+    class Meta:
+        verbose_name = _('Book')
+        verbose_name_plural = _('Books')
     
     def __unicode__(self):
         return self.title
