@@ -4,13 +4,15 @@
 {% block title %}{{object.title}}{% endblock %}
 
 {% block content %}
-  <h3><a href="{% url books-details object.slug %}">{{object.title}}</a></h3>
+  <h3><a href="{% url "books-details" object.slug %}">{{object.title}}</a></h3>
   {{ object.description|linebreaks }}
   
   {% if object.cover %}
-  <img src="{% thumbnail object.cover 250x250 %}" />  
+  {% thumbnail book.cover "250x250" as im %}
+    <img src="{{ im.url }}">
+  {% endthumbnail %}
   {% endif %}
   <p>
-  <a href="{% url books-index %}">Retour à la liste des livres</a>
+  <a href="{% url "books-index" %}">Retour à la liste des livres</a>
   </p>
 {% endblock %}

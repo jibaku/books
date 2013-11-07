@@ -1,6 +1,8 @@
+from books.views import BooksList
+from books.views import BookDetail
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('books.views',
-    url(r'^$', 'books_list', name='books-index'),
-    url(r'^(?P<slug>[-\w]+)$', 'book_detail', name='books-details'),
+urlpatterns = patterns('',
+    url(r'^$', BooksList.as_view(), name='books-index'),
+    url(r'^(?P<slug>[-\w]+)$', BookDetail.as_view(), name='books-details'),
 )

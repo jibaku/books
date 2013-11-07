@@ -1,12 +1,12 @@
-from django.views.generic.list_detail import object_list
-from django.views.generic.list_detail import object_detail
+from django.views.generic import ListView
+from django.views.generic import DetailView
+
 from books.models import Book
 
-def books_list(request, page = 1):
-    books = Book.on_site.published()
-    return object_list(request, queryset=books, allow_empty=False)
-    
-def book_detail(request, slug):
-    books = Book.on_site.published()
-    return object_detail(request, queryset=books, slug=slug)
-    
+class BooksList(ListView):
+	def get_queryset(self):
+		return Book.on_site.published()
+
+class BookDetail(DetailView):
+	def get_queryset(self):
+		return Book.on_site.published()
