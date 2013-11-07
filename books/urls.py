@@ -1,6 +1,7 @@
+from django.conf.urls import patterns, url
+
 from books.views import BooksList
 from books.views import BookDetail
-from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     url(r'^$', BooksList.as_view(), name='books-index'),
