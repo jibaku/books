@@ -2,16 +2,15 @@ from distutils.core import setup
  
 setup(
     name = "books",
-    version = "0.1",
+    version = "0.1.1",
     author = "Fabien Schwob",
     author_email = "fabien@x-phuture.com",
     description = "A book management app",
     long_description = "A book management app",
     license = "BSD",
     url = "https://hg.jibaku.net/modules/books/",
-    packages = [
-        "books",
-    ],
+    packages=find_packages(exclude=[]),
+    include_package_data=True,
     classifiers = [
         "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
