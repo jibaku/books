@@ -1,5 +1,5 @@
 {% extends "books/base_books.html" %}
-{% load i18n thumbnail %}
+{% load i18n %}
 
 {% block title %}{% trans "Books" %}{% endblock %}
 
@@ -10,9 +10,7 @@
   {{ book.description|linebreaks }}
   
   {% if book.cover %}
-  {% thumbnail book.cover "250x250" as im %}
-    <img src="{{ im.url }}">
-  {% endthumbnail %}
+    <img src="{{ book.cover.url }}">
   {% endif %}
 {% empty %}
 <p>No books</p>
