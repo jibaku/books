@@ -17,7 +17,6 @@ class RandomBooksNode(template.Node):
 @register.tag(name="random_books")
 def random_books(parser, token):
     """
-    {% random_books as books %}
     """
     tokens = token.split_contents()
     tokens_len = len(tokens)
