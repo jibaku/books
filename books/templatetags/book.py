@@ -20,10 +20,11 @@ def random_books(parser, token):
     {% random_books as books %}
     """
     tokens = token.split_contents()
-    if len(tokens) is not 3 and token[0] == 'random_books' and token[0] == 'as':
+    tokens_len = len(tokens)
+    if tokens_len is not 3 and token[0] == 'random_books' and token[0] == 'as':
         msg = "%r tag must be used with %s" % (
             tokens[0],
-            "{% profile_url user as profil_details %}"
+            r"{% profile_url user as profil_details %}"
         )
         raise template.TemplateSyntaxError(msg)
     var_name = tokens[2]
