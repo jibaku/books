@@ -1,12 +1,9 @@
-import re
-
 from django import template
-from django.core.cache import cache
-from django.core.urlresolvers import reverse
 
 register = template.Library()
 
 from books.models import Book
+
 
 class RandomBooksNode(template.Node):
     def __init__(self, var_name):
@@ -24,6 +21,10 @@ def random_books(parser, token):
     """
     tokens = token.split_contents()
     if len(tokens) is not 3 and token[0] == 'random_books' and token[0] == 'as':
-        raise template.TemplateSyntaxError, "%r tag must be used with %s" % (tokens[0], "{% profile_url user as profil_details %}")
+        msg = "%r tag must be used with %s" % (
+            tokens[0],
+            "{% profile_url user as profil_details %}"
+        )
+        raise template.TemplateSyntaxError(msg)
     var_name = tokens[2]
     return RandomBooksNode(var_name)
